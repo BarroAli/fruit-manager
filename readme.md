@@ -1,0 +1,1 @@
+Bienvenue sur **fruit manager**, un gestionnaire de plantation exotique pour gérer votre plantation fruit !
