@@ -15,6 +15,13 @@ with st.sidebar:
     if st.button("Vendre"):
         inventaire,tresorerie = vendre(inventaire, fruit_vendre, quantite_vendre, tresorerie, prix)
         
+    st.header("Recolter des fruits")
+    fruit_recolter = st.selectbox("choisir un fruit à recolter", list(inventaire.keys()), key = "Recolter")
+    quantite_recolter = st.number_input("quantité à recolter", min_value=1, step=1, key= "quantité récoltée")
+    
+    if st.button("Recolter"):
+        inventaire = recolter(inventaire, fruit_recolter, quantite_recolter)
+        
 
 st.header(" 💰 Trésorerie")
 st.metric("Montant disponible", value=f"{tresorerie:.2f} $")
