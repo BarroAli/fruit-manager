@@ -1,27 +1,80 @@
 import json
+import os
 
-def ouvrir_prix(path="data/prix.json"):
-    with open(path, 'r',encoding="utf-8" ) as fichier:
-        prix = json.load(fichier)
-    return prix
+DATA_DIR = "data"
+PRIX_PATH = os.path.join(DATA_DIR, 'prix.json')
+INVENTAIRE_PATH = os.path.join(DATA_DIR, 'inventaire.json')
+TRESORERIE_PATH = os.path.join(DATA_DIR, 'tresorerie.txt')
 
-def ouvrir_inventaire(path="data/inventaire.json"):
-    with open(path, 'r', encoding="utf-8") as fichier:
-        inventaire = json.load(fichier)
-    return inventaire
 
-def ecrire_inventaire(inventaire, path = "data/inventaire.json"):
-    with open(path, 'w', encoding="utf-8") as fichier:
-        json.dump(inventaire, fichier, ensure_ascii=False, indent=4)
+
+# def ouvrir_prix(path="data/prix.json"):
+#     with open(path, 'r',encoding="utf-8" ) as fichier:
+#         prix = json.load(fichier)
+#     return prix
+
+def ouvrir_prix(path=PRIX_PATH):
+    os.makedirs(DATA_DIR, exist_ok=True)
+    if not os.path.exists(path):
+        prix_defaut = {
+            "bananes": 2,
+            "mangues": 7,
+            "ananes": 5,
+            "noix de coco": 4,
+            "papayes": 3
+        }
+        with open(path, 'w',encoding="utf-8" ) as fichier:
+            json.dump(prix_defaut, fichier, ensure_ascii=False, indent=4)
+    with open(path, 'r',encoding='utf-8') as fichier:
+        return json.load(fichier)
+
+
+
+
+
+def ouvrir_inventaire(path=INVENTAIRE_PATH):
+    os.makedirs(DATA_DIR, exist_ok=True)
+    if not os.path.exists(path):
+        inventaire_defaut = {
+            "bananes": 120,
+            "mangues": 85,
+            "ananes": 45,
+            "noix de coco": 60,
+            "papayes": 30
+        }
+        with open(path, 'w',encoding="utf-8" ) as fichier:
+            json.dump(inventaire_defaut, fichier, ensure_ascii=False, indent=4)
+    with open(path, 'r',encoding='utf-8') as fichier:
+        return json.load(fichier)
+    
+# def ouvrir_inventaire(path="data/inventaire.json"):
+#     with open(path, 'r', encoding="utf-8") as fichier:
+#         inventaire = json.load(fichier)
+#     return inventaire
+
+# def ecrire_inventaire(inventaire, path = "data/inventaire.json"):
+#     with open(path, 'w', encoding="utf-8") as fichier:
+#         json.dump(inventaire, fichier, ensure_ascii=False, indent=4)
         
-def ouvrir_tresorerie(path = 'data/tresorerie.txt'):
-    with open(path, 'r', encoding="utf-8") as fichier:
-        tresorerie = json.load(fichier)
-    return tresorerie
 
-def ecrire_tresorerie(tresorerie, path = "data/tresorerie.txt"):
-    with open(path, 'w', encoding="utf-8") as fichier:
-        json.dump(tresorerie, fichier, ensure_ascii=False, indent=4)
+
+def ouvrir_tresorerie(path=TRESORERIE_PATH):
+    os.makedirs(DATA_DIR, exist_ok=True)
+    if not os.path.exists(path):
+        with open(path, 'w',encoding="utf-8" ) as fichier:
+            json.dump(1000.0, fichier)
+    with open(path, 'r',encoding='utf-8') as fichier:
+        return json.load(fichier)
+
+        
+# def ouvrir_tresorerie(path = 'data/tresorerie.txt'):
+#     with open(path, 'r', encoding="utf-8") as fichier:
+#         tresorerie = json.load(fichier)
+#     return tresorerie
+
+# def ecrire_tresorerie(tresorerie, path = "data/tresorerie.txt"):
+#     with open(path, 'w', encoding="utf-8") as fichier:
+#         json.dump(tresorerie, fichier, ensure_ascii=False, indent=4)
 
 def afficher_tresorerie(trseorerie):
     print(f"\n Trésorerie actuelle : {trseorerie:.2f} $")
@@ -58,5 +111,5 @@ if __name__ == "__main__":
     recolter(inventaire, "bananes", 10)
     inventaire, tresorerie= vendre(inventaire, "bananes", 5, tresorerie, prix)
     
-    ecrire_inventaire(inventaire)
-    ecrire_tresorerie(tresorerie)
+    # ecrire_inventaire(inventaire)
+    # ecrire_tresorerie(tresorerie)
